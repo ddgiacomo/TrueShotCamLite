@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>True Shot CAM-Lite</title>
+<link href="css/index2.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/style.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+
+isPendingInterstitial = false;
+isAutoshowInterstitial = false;
+
+function prepareInterstitialAd() {
+    if (!isPendingInterstitial) { // We won't ask for another interstitial ad if we already have an available one
+        admob.requestInterstitialAd({
+            autoShowInterstitial: isAutoshowInterstitial
+        });
+    }
+}
+
+function onAdLoadedEvent(e) {
+    if (e.adType === admob.AD_TYPE.INTERSTITIAL && !isAutoshowInterstitial) {
+        isPendingInterstitial = true;
+    }
+}
+
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+	var canvas2ImagePlugin = window.canvas2ImagePlugin;
+	
+	// Set AdMobAds options:
+    admob.setOptions({
+        publisherId:          "ca-app-pub-2284298275386109/6453176070",  // Required
+		interestitialAdId: "ca-app-pub-2284298275386109/5026925671",
+    });
+	
+	document.addEventListener(admob.events.onAdLoaded, onAdLoadedEvent);
+    prepareIntestitialAd();
+}
+
+function showInterstitialAd() {
+    if (isPendingInterstitial) {
+        admob.showInterstitialAd(function () {
+                isPendingInterstitial = false;
+                isAutoshowInterstitial = false;
+                prepareInterstitialAd();
+        });
+    } else {
+        // The interstitial is not prepared, so in this case, we want to show the interstitial as soon as possible
+        isAutoshowInterstitial = true;
+        admob.requestInterstitialAd({
+            autoShowInterstitial: isAutoshowInterstitial
+        });
+    }
+}
+
+function showonlyone(thechosenone) {
+	var newboxes = document.getElementsByTagName("div");
+	var umail = localStorage.getItem("usermail");
+
+	if ((!umail) && (thechosenone != "newboxes8")){
+		thechosenone = "newboxes8";
+	}
+	
+	showInterstitialAd();
+
+	for(var x=0; x<newboxes.length; x++) {
+		name = newboxes[x].getAttribute("class");
+		if (name == 'newboxes') {
+			if (newboxes[x].id == thechosenone) {
+				newboxes[x].style.display = 'block';
+			} else {
+				newboxes[x].style.display = 'none';
+			}
+		}
+	}
+}
+
+function amostrarl(){
+	var ok = 0;
+	var ckbox = document.getElementsByName('sh[]');
+ /*   for (var i=0; i < ckbox.length; i++){
+        if(ckbox[i].checked == true){
+        ok = 1;
+        }
+    }
+    if(ok == 0){
+    alert('indique al menos un mes');
+    return false;
+    } */
+	var sh0 = localStorage.getItem("lsystem");
+	var sh1 = localStorage.getItem("daytime");
+	var sh2 = localStorage.getItem("geoloc");
+	var sh3 = localStorage.getItem("gps");
+	var sh4 = localStorage.getItem("comm");
+	var sh5 = localStorage.getItem("userid");
+	var sh6 = localStorage.getItem("name");
+	var sh7 = localStorage.getItem("phone");
+	if (sh0 == null) {
+		ckbox[0].checked = true;
+	} else if (sh0 == "1") {
+		ckbox[0].checked = true;
+	} else {
+		ckbox[0].checked = false;
+	}
+	if (sh1 == null) {
+		ckbox[1].checked = true;
+	} else if (sh1 == "1") {
+		ckbox[1].checked = true;
+	} else {
+		ckbox[1].checked = false;
+	}
+	if (sh2 == null) {
+		ckbox[2].checked = true;
+	} else if (sh2 == "1") {
+		ckbox[2].checked = true;
+	} else {
+		ckbox[2].checked = false;
+	}
+	if (sh3 == null) {
+		ckbox[3].checked = true;
+	} else if (sh3 == "1") {
+		ckbox[3].checked = true;
+	} else {
+		ckbox[3].checked = false;
+	}
+	if (sh4 == null) {
+		ckbox[4].checked = true;
+	} else if (sh4 == "1") {
+		ckbox[4].checked = true;
+	} else {
+		ckbox[4].checked = false;
+	}
+	if (sh5 == null) {
+		ckbox[5].checked = true;
+	} else if (sh5 == "1") {
+		ckbox[5].checked = true;
+	} else {
+		ckbox[5].checked = false;
+	}
+	if (sh6 == null) {
+		ckbox[6].checked = true;
+	} else if (sh6 == "1") {
+		ckbox[6].checked = true;
+	} else {
+		ckbox[6].checked = false;
+	}
+	if (sh7 == null) {
+		ckbox[7].checked = true;
+	} else if (sh7 == "1") {
+		ckbox[7].checked = true;
+	} else {
+		ckbox[7].checked = false;
+	}
+	
+}
+
+function amostrars(){
+	var ok = 0;
+	var ckbox = document.getElementsByName('sh[]');
+
+	if (ckbox[0].checked == true) {
+		localStorage.setItem("lsystem", "1");
+	} else {
+		localStorage.setItem("lsystem", "0");
+	}
+	if (ckbox[1].checked == true) {
+		localStorage.setItem("daytime", "1");
+	} else {
+		localStorage.setItem("daytime", "0");
+	}
+	if (ckbox[2].checked == true) {
+		localStorage.setItem("geoloc", "1");
+	} else {
+		localStorage.setItem("geoloc", "0");
+	}
+	if (ckbox[3].checked == true) {
+		localStorage.setItem("gps", "1");
+	} else {
+		localStorage.setItem("gps", "0");
+	}
+	if (ckbox[4].checked == true) {
+		localStorage.setItem("comm", "1");
+	} else {
+		localStorage.setItem("comm", "0");
+	}
+	if (ckbox[5].checked == true) {
+		localStorage.setItem("userid", "1");
+	} else {
+		localStorage.setItem("userid", "0");
+	}
+	if (ckbox[6].checked == true) {
+		localStorage.setItem("name", "1");
+	} else {
+		localStorage.setItem("name", "0");
+	}
+	if (ckbox[7].checked == true) {
+		localStorage.setItem("phone", "1");
+	} else {
+		localStorage.setItem("phone", "0");
+	}
+}
+
+function sistemal(){
+
+	var trad0 = document.getElementById('t0');
+	var trad1 = document.getElementById('t1');
+	var trad2 = document.getElementById('t2');
+	var qrad0 = document.getElementById('q0');
+	var qrad1 = document.getElementById('q1');
+	var qrad2 = document.getElementById('q2');
+	var lsty = localStorage.getItem("lstype");
+	var lsqt = localStorage.getItem("lsqty");
+
+	if (lsty == null) {
+		trad0.checked = true;
+	} else if (lsty == "G") {
+		trad0.checked = true;
+	} else if (lsty == "D") {
+		trad1.checked = true;
+	} else {
+		trad2.checked = true;
+	}
+
+	if (lsqt == null) {
+		qrad0.checked = true;
+	} else if (lsqt == "3") {
+		qrad0.checked = true;
+	} else if (lsqt == "4") {
+		qrad1.checked = true;
+	} else {
+		qrad2.checked = true;
+	}
+	
+}
+
+function sistemas(){
+	var trad0 = document.getElementById('t0');
+	var trad1 = document.getElementById('t1');
+	var trad2 = document.getElementById('t2');
+	var qrad0 = document.getElementById('q0');
+	var qrad1 = document.getElementById('q1');
+	var qrad2 = document.getElementById('q2');
+	
+	if (trad0.checked == true) {
+		localStorage.setItem("lstype", "G");
+	} else if (trad1.checked == true) {
+		localStorage.setItem("lstype", "D");
+	} else {
+		localStorage.setItem("lstype", "C");
+	}
+	
+	if (qrad0.checked == true) {
+		localStorage.setItem("lsqty", "3");
+	} else if (qrad1.checked == true) {
+		localStorage.setItem("lsqty", "4");
+	} else {
+		localStorage.setItem("lsqty", "5");
+	}
+}
+
+function gstyle1(){
+	var prad0 = document.getElementById('p0');
+	var prad1 = document.getElementById('p1');
+	var prad2 = document.getElementById('p2');
+	var prad3 = document.getElementById('p3');
+	var crad0 = document.getElementById('c0');
+	var crad1 = document.getElementById('c1');
+	var crad2 = document.getElementById('c2');
+	var crad3 = document.getElementById('c3');
+	var srad0 = document.getElementById('s0');
+	var srad1 = document.getElementById('s1');
+	var srad2 = document.getElementById('s2');
+	var stps = localStorage.getItem("stpos");
+	var stcl = localStorage.getItem("stcol");
+	var stsz = localStorage.getItem("stsiz");
+
+	if (stps == null) {
+		prad0.checked = true;
+	} else if (stps == "UL") {
+		prad0.checked = true;
+	} else if (stps == "BL") {
+		prad1.checked = true;
+	} else if (stps == "BR") {
+		prad2.checked = true;
+	} else {
+		prad3.checked = true;
+	}
+
+	if (stcl == null) {
+		crad0.checked = true;
+	} else if (stcl == "BLACK") {
+		crad0.checked = true;
+	} else if (stcl == "WHITE") {
+		crad1.checked = true;
+	} else if (stcl == "BLUE") {
+		crad2.checked = true;
+	} else {
+		crad3.checked = true;
+	}
+	
+	if (stsz == null) {
+		srad0.checked = true;
+	} else if (stsz == "1X") {
+		srad0.checked = true;
+	} else if (stsz == "2X") {
+		srad1.checked = true;
+	} else {
+		srad2.checked = true;
+	}
+}
+
+function gstyle2(){
+	var prad0 = document.getElementById('p0');
+	var prad1 = document.getElementById('p1');
+	var prad2 = document.getElementById('p2');
+	var prad3 = document.getElementById('p3');
+	var crad0 = document.getElementById('c0');
+	var crad1 = document.getElementById('c1');
+	var crad2 = document.getElementById('c2');
+	var crad3 = document.getElementById('c3');
+	var srad0 = document.getElementById('s0');
+	var srad1 = document.getElementById('s1');
+	var srad2 = document.getElementById('s2');
+	
+	if (prad0.checked == true) {
+		localStorage.setItem("stpos", "UL");
+	} else if (prad1.checked == true) {
+		localStorage.setItem("stpos", "BL");
+	} else if (prad2.checked == true) {
+		localStorage.setItem("stpos", "BR");
+	} else {
+		localStorage.setItem("stpos", "UR");
+	}
+	
+	if (crad0.checked == true) {
+		localStorage.setItem("stcol", "BLACK");
+	} else if (crad1.checked == true) {
+		localStorage.setItem("stcol", "WHITE");
+	} else if (crad2.checked == true) {
+		localStorage.setItem("stcol", "BLUE");
+	} else {
+		localStorage.setItem("stcol", "RED");
+	}
+	
+	if (srad0.checked == true) {
+		localStorage.setItem("stsiz", "1X");
+	} else if (srad1.checked == true) {
+		localStorage.setItem("stsiz", "2X");
+	} else {
+		localStorage.setItem("stsiz", "3X");
+	}
+}
+
+function canvasize(){
+	var c = document.getElementById("canvas");
+	var ctx = c.getContext("2d");
+	pWd = 1;
+//	var x = screen.width;
+//	var txt = "";
+//  txt += "<p>Total width/height: " + screen.width + "*" + screen.height + "</p>";
+//	document.getElementById("demo").innerHTML = txt;
+
+var x = window.innerWidth
+|| document.documentElement.clientWidth
+|| document.body.clientWidth;
+
+    if (x <= 320){
+		c.height = 420;
+		c.width = 300;
+	    pWd = 0;
+		ctx.font = "italic 16px sans-serif";
+	} else if (x <= 480) {
+		c.height = 450;
+		c.width = 321;
+		pWd = 0;
+		ctx.font = "italic 20px sans-serif";
+	} else if (x <= 540) {
+		c.height = 481;
+		c.width = 481;
+		pWd = 0;
+		ctx.font = "italic 20px sans-serif";
+	} else if (x <= 600) {
+		c.height = 550;
+		c.width = 541;
+		ctx.font = "italic 28px sans-serif";
+	} else if (x <= 800) {
+		c.height = 600;
+		c.width = 601;
+		ctx.font = "italic 28px sans-serif";
+	} else if (x <= 1150) {
+		c.height = 801;
+		c.width = 801;
+		ctx.font = "italic 28px sans-serif";
+	} else {
+		c.height = 1151;
+		c.width = 1151;
+		ctx.font = "italic 28px sans-serif";
+	}
+/*	var textoCamara = 'Press "Take photo" to take picture,';
+	ctx.fillText(textoCamara,10,100);
+	var textoCamara = 'and press save photo to save the';
+	ctx.fillText(textoCamara,10,140);
+	var textoCamara = 'to your device.';
+	ctx.fillText(textoCamara,10,180);*/
+}
+
+function loginTsc(){
+	var reason = "";
+	var valorCaja1 = document.getElementById('valor1').value;
+	var valorCaja2 = document.getElementById('valor2').value;
+
+	reason += validateEmpty(valorCaja1,"Email");
+	reason += validateEmpty(valorCaja2,"Password");
+	reason += validateEmail(valorCaja1);
+
+	if (reason == ""){
+//	alert('antes del $post');
+        $.post("http://52.27.166.243/getlogin.php",
+        {
+			email : valorCaja1,
+			password : valorCaja2 
+		},
+        function(data,status){
+			datalog = data;
+ //          alert("Data: " + data + "\nStatus: " + status + "datalog: " + datalog);
+			if (datalog == "NO") {
+				alert ('Please enter a valid User Id and Password');
+			} else {
+				var n = datalog.search("%%");
+				var l = datalog.length;
+				var usrn = datalog.substring(0, n);
+				var phon = datalog.substring(n+2);
+//				alert('User Name: ' + usrn + ', phone number: ' + phon);
+				localStorage.setItem("usermail", valorCaja1);
+				localStorage.setItem("username", usrn);
+				localStorage.setItem("userphone", phon);
+				setDefault();
+				showonlyone('newboxes1');
+			}
+        });
+	}
+}
+
+function newAccount(){
+	var reason = "";
+	var uid = document.getElementById('id1').value;
+	var pw1 = document.getElementById('id2').value;
+	var pw2 = document.getElementById('id3').value;
+	var nam = document.getElementById('id4').value;
+	var pho = document.getElementById('id5').value;
+	reason += validateEmpty(uid,"Email");
+	reason += validateEmail(uid);
+	reason += validatePwd(pw1,pw2);
+	reason += validateEmpty(nam,"Name");
+	reason += validateEmpty(pho,"Phone");
+	
+
+	if (reason == ""){
+	alert('antes del $post');
+        $.post("http://52.27.166.243/new_account.php",
+        {
+			var1 : uid,
+			var2 : pw1,
+			var3 : nam,
+			var4 : pho
+		},
+        function(data,status){
+			datalog = data;
+			if (datalog == "NO") {
+				alert ('User already exists in True Shot CAM');
+			} else {
+				localStorage.setItem("usermail", uid);
+				localStorage.setItem("username", nam);
+				localStorage.setItem("userphone", pho);
+				setDefault();
+				showonlyone('newboxes1');
+			}
+        });
+	}
+}
+
+function resetP(){
+	var reason = "";
+	var uid = document.getElementById('pr1').value;
+	var pw1 = document.getElementById('pr2').value;
+	var pw2 = document.getElementById('pr3').value;
+	reason += validateEmpty(uid,"Email");
+	reason += validateEmail(uid);
+	reason += validatePwd(pw1,pw2);
+
+	if (reason == ""){
+        $.post("http://52.27.166.243/password_reset.php",
+        {
+			var1 : uid,
+			var2 : pw1,
+		},
+        function(data,status){
+			datalog = data;
+			if (datalog == "NO") {
+				alert ('User does not exist in True Shot CAM');
+			} else {
+				var n = datalog.search("%%");
+				var l = datalog.length;
+				var usrn = datalog.substring(0, n);
+				var phon = datalog.substring(n+2);
+				localStorage.setItem("usermail", uid);
+				localStorage.setItem("username", usrn);
+				localStorage.setItem("userphone", phon);
+				setDefault();
+				document.getElementById("pr1").value = "";
+				document.getElementById("pr2").value = "";
+				document.getElementById("pr3").value = "";
+				showonlyone('newboxes1');
+			}
+        });
+	}
+}
+
+function validateEmpty(fld,fldname) {
+    var error = "";
+	if (fld == "") {
+		alert ('Please enter all the fields');
+        error = "The required field has not been filled in.\n";
+    }
+    return error;   
+}
+function validatePwd(fld1,fld2) {
+    var error = "";
+	if (fld1 == "") {
+		alert ('Please enter all the fields');
+        error = "The User Password cannot be blank.\n";
+    } else if (fld1 != fld2) {
+		alert ('Password and Password confirmation do not match');
+        error = "Password and Password confirmation do not match.\n";
+	}
+    return error;   
+}
+
+function trim(s){
+  return s.replace(/^\s+|\s+$/, '');
+} 
+function validateEmail(fld) {
+    var error="";
+    var tfld = trim(fld);	// value of field with whitespace trimmed off
+    var emailFilter = /^[^@]+@[^@.]+\.[^@]*\w\w$/ ;
+    var illegalChars= /[\(\)\<\>\,\;\:\\\"\[\]]/ ;
+ //   alert (tfld);
+    if (!emailFilter.test(tfld)) {              //test email for illegal characters
+		alert ('Please enter a valid email address');
+        error = "Please enter a valid email address";
+    } else if (fld.match(illegalChars)) {
+		alert ('The email address contains illegal characters');
+        error = "The email address contains illegal characters";
+    }
+//	alert ('antes del return, error= ' + error);
+    return error;
+}
+function setDefault () {
+	localStorage.setItem("lsystem", "1");
+	localStorage.setItem("daytime", "1");
+	localStorage.setItem("geoloc", "1");
+	localStorage.setItem("gps", "1");
+	localStorage.setItem("comm", "1");
+	localStorage.setItem("userid", "1");
+	localStorage.setItem("name", "1");
+	localStorage.setItem("phone", "1");
+	localStorage.setItem("lstype", "G");
+	localStorage.setItem("stpos", "UL");
+	localStorage.setItem("stcol", "BLACK");
+	localStorage.setItem("stsiz", "1X");
+	localStorage.setItem("lsqty", "3");
+	localStorage.setItem("latlon", "LAT-LON");
+	localStorage.setItem("gpsdir1", "DIR1");
+	localStorage.setItem("gpsdir2", "DIR2");
+	localStorage.setItem("gpsdir3", "DIR3");
+}
+function buscaGeo() {
+	var ltln = localStorage.getItem("latlon");
+	
+	if (navigator.geolocation) {
+		gps2 = "OK";
+		var geo = navigator.geolocation;
+		geo.getCurrentPosition(showLocation, showError);
+		//geo.watchCurrentPosition(showLocation, showError);
+	}
+}
+
+function showLocation(position) {
+	var lat = position.coords.latitude;
+	var lng = position.coords.longitude;
+	var igps = "Cooords: " + lat + ", " + lng;
+	localStorage.setItem("latlon", igps);
+	
+// Rutina de Google Maps
+	var dir = " ";
+	var lon = lng;
+	var latlng = new google.maps.LatLng(lat, lon);
+	geocoder = new google.maps.Geocoder();
+	geocoder.geocode({"latLng": latlng}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			if (results[0]) {
+				dir = results[0].formatted_address;
+// Rutina jquery para separar la direccion
+var dir1 = "";
+var dir2 = "";
+var dir3 = "";
+var address_components = results[0].address_components;
+var components={}; 
+jQuery.each(address_components, function(k,v1) {jQuery.each(v1.types, function(k2, v2){components[v2]=v1.long_name});})
+
+if (components.street_number && components.route) {
+	dir1 = components.street_number + ", " + components.route;
+} else if (components.street_number){
+	dir1 = components.street_number;
+} else if (components.route) {
+	dir1 = components.route;
+}
+localStorage.setItem("gpsdir1", dir1);
+if (components.locality && components.postal_code) {
+	dir2 = components.locality + ", " + components.postal_code;
+} else if (components.locality) {
+	dir2 = components.locality;
+} else if (components.postal_code) {
+	dir2 = components.postal_code;
+}
+localStorage.setItem("gpsdir2", dir2);
+if (components.administrative_area_level_1 && components.country) {
+	dir3 = components.administrative_area_level_1 + ", " + components.country;
+} else if (components.administrative_area_level_1) {
+	dir3 = components.administrative_area_level_1;
+} else if (components.administrative_area_level_1) {
+	dir3 = components.country;
+}
+localStorage.setItem("gpsdir3", dir3);
+// fin rutina jquery
+			} else {
+				dir = "No se ha podido obtener ninguna dirección en esas coordenadas";
+			}
+		} else {
+			dir = "El Servicio de Codificación Geográfica ha fallado con el siguiente error: " + status;
+		}
+	});
+
+// Fin rutina de Google Maps
+
+	localStorage.setItem("gpsdir3", dir);
+}
+
+function showError(position) {
+	clearTimeout(location_timeout);
+	localStorage.setItem("latlon", "NO GPS");
+}
+
+function mySavingFunction(myCanvasId) {
+	canvas2ImagePlugin.saveImageDataToLibrary(
+		function(msg){
+			alert("Saving image is successful!");
+		}, 
+		function(err){
+			alert(err);
+		}, 
+		myCanvasId
+	);
+}
+function sendMessage(){
+	// alert('mensaje enviado');
+	var cuerpoMsg = document.getElementById('texta').value;
+	$.post("http://52.27.166.243/enviamsg.php",
+	{
+		cuerpo : cuerpoMsg 
+	},
+		function(data,status){
+			showonlyone('newboxes1');
+		});
+}
+</script> 
+</head>
+ 
+<body onload="showonlyone('newboxes1');">
+
+<div class="newboxes" id="newboxes1">
+<div id="container">
+	<br><br><br><br><br><br><br><br>
+	<h1>True Shot CAM</h1>
+	<br>
+	<div class="app1">
+		<p><a href="#" onclick="showonlyone('newboxes2');"><img class="resize" src="img/TSC Logo.png" alt="" title="" /></a></p>
+		<br><br>
+		<button class="submit3" type="submit" onclick="buscaGeo();canvasize();showonlyone('newboxes2');">Camera</button>
+		<br><br><br>
+		<button class="submit3" type="submit" onclick="showonlyone('newboxes3');">Preview</button>
+		<br><br><br>
+		<button class="submit3" type="submit" onclick="showonlyone('newboxes4');">Settings</button>
+		<br><br><br>
+		<button class="submit3" type="submit" onclick="showonlyone('newboxes8');">Log In/Log Out</button>
+	</div>
+	<br><br>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes2" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb">
+			Camera
+		</div>
+		<div id="titc">
+			&nbsp;
+		</div>
+	</div>
+	<div class="app5">
+	<div id="content" style="margin-top:10px; height:450px;">
+		<canvas id="canvas"></canvas>
+		<br>
+		Press "Take photo" to take picture, and press save photo to save the image to your device.
+		<br><br>
+		<button class="submit4s" type="submit" onclick="mySavingFunction(canvas)">SAVE PHOTO</button>
+		<button class="submit4t" id="takePhoto" class="link">TAKE PHOTO</button>
+<!--		<br><br><br>-->
+
+<!--		<button class="submit" id="sendPhoto" class="link">SAVE PHOTO</button>-->
+	</div>
+	</div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes3" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb">
+			Preview
+		</div>
+		<div id="titc">
+			&nbsp;
+		</div>
+	</div>
+	<div class="app5">
+		<div id="content" style="margin-top:10px; height:460px;">
+<!--		<button onclick="capturePhoto();">Capture Photo</button><br> -->
+			<img id="image" src="" style="display:none;width:100%;">
+			<br>
+		</div>
+		Press Refresh to preview photos from your album
+		<br><br>
+		<button class="submit1" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Refresh</button><br>
+	</div>
+</div>
+</div>	
+
+<div class="newboxes" id="newboxes4" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb">
+			Settings
+		</div>
+		<div id="titc">
+		
+		</div>
+	</div>
+	<div class="app3">
+		<br><br><br>
+		<b>GENARAL</b>
+		<br><br>
+		<a href="#" onclick="amostrarl();showonlyone('newboxes5');">Elements to Show</a><br>
+	</div>
+	<div class="app3">
+		<b>LINEAR SYSTEM</b>
+		<br><br>
+		<a href="#" onclick="sistemal();showonlyone('newboxes6');">Linear System Details</a><br>
+	</div>
+	<div class="app3">
+		<b>STAMP</b>
+		<br><br>
+		<a href="#" onclick="gstyle1();showonlyone('newboxes7');">Stamp Location,Color & Size</a><br>
+	</div>
+	<div class="app3">
+		<b>CONTACT US</b>
+		<br><br>
+		<a href="#" onclick="showonlyone('newboxes10c');">Send your Comments</a><br>
+	</div>
+	<div class="app3">
+		<b>ABOUT US</b>
+		<br><br>
+		<a href="#" onclick="showonlyone('newboxes10a');">Who we are</a><br>
+	</div>
+	<div class="app3">
+		<b>TERMS AND CONDITIONS</b>
+		<br><br>
+		<a href="#" onclick="showonlyone('newboxes10b');">Terms</a><br>
+	</div>
+	<div class="app3">
+		<b>COMMING SOON...</b>
+		<br><br>
+		Verify Photos<br><br>
+		Album in Server<br>
+	</div>
+	<div class="app3"></div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes5" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb">
+			TSC Stamp
+		</div>
+		<div id="titc">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes4');"><&nbsp;Settings</a>
+		</div>
+	</div>
+	<div class="app3">
+		<br><br><br>
+		<b>SELECT ELEMENTS TO SHOW</b>
+		<br>
+	</div>
+	<div class="app3">
+		<form>
+			<input type="checkbox" name="sh[]"> Linear System<br><br>
+			<input type="checkbox" name="sh[]"> Date and Time<br><br>
+			<input type="checkbox" name="sh[]"> Geographic Location<br><br>
+			<input type="checkbox" name="sh[]"> GPS Coordinates<br><br>
+			<input type="checkbox" name="sh[]"> Comments<br><br>
+			<input type="checkbox" name="sh[]"> User Id<br><br>
+			<input type="checkbox" name="sh[]"> User Name<br><br>
+			<input type="checkbox" name="sh[]"> User Phone Number<br><br>
+		</form>
+	</div>
+	<div class="app3"></div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes6" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="sistemas();showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb">
+			Linear System
+		</div>
+		<div id="titc">
+			<br><a href="#" onclick="sistemas();showonlyone('newboxes4');"><&nbsp;Settings</a>
+		</div>
+	</div>
+	<div class="app3">
+		<br><br><br>
+		<b>CHOSE LINEAR SYSTEM TYPE</b>
+		<br>
+	</div>
+	<div class="app3">
+		<form>
+			<input type="radio" name="type" id="t0" value="grid"> Grid - Horizontal and Vertical lines<br>
+			<input type="radio" name="type" id="t1" value="diamond"> Diamond - Diagonal lines<br>
+			<input type="radio" name="type" id="t2" value="circle"> Circle - Concentric Circles<br>
+		</form>
+	</div>
+	<div class="app3">
+		<br>
+		<b>SELECT THE NUMBER OF LINES OR CIRCLES</b>
+		<br>
+	</div>
+	<div class="app3">
+		<form>
+			<input type="radio" name="qty" id="q0" value="3"> 3<br>
+			<input type="radio" name="qty" id="q1" value="4"> 4<br>
+			<input type="radio" name="qty" id="q2" value="5"> 5<br>
+		</form>
+	</div>
+	<div class="app3"></div>
+</div>
+</div>	
+
+<div class="newboxes" id="newboxes7" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="gstyle2();showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb">
+			General Style
+		</div>
+		<div id="titc">
+			<br><a href="#" onclick="gstyle2();showonlyone('newboxes4');"><&nbsp;Settings</a>
+		</div>
+	</div>
+	<div class="app3">
+		<br><br><br>
+		<b>STAMP POSITION</b>
+		<br>
+	</div>
+	<div class="app3">
+		<form>
+			<input type="radio" name="position" id="p0" value="ul"> Upper Left<br>
+			<input type="radio" name="position" id="p1" value="bl"> Bottom Left<br>
+			<input type="radio" name="position" id="p2" value="br"> Bottom Right<br>
+			<input type="radio" name="position" id="p3" value="ur"> Upper Right<br>
+		</form>
+	</div>
+	<div class="app3">
+		<br>
+		<b>STAMP AND LINES COLOR</b>
+		<br>
+	</div>
+	<div class="app3">
+		<form>
+			<input type="radio" name="color" id="c0" value="black"> Black<br>
+			<input type="radio" name="color" id="c1" value="white"> White<br>
+			<input type="radio" name="color" id="c2" value="blue"> Blue<br>
+			<input type="radio" name="color" id="c3" value="red"> Red<br>
+		</form>
+	</div>
+	<div class="app3">
+		<br>
+		<b>FONT SIZE</b>
+		<br>
+	</div>
+	<div class="app3">
+		<form>
+			<input type="radio" name="size" id="s0" value="1x"> Normal<br>
+			<input type="radio" name="size" id="s1" value="2x"> 2X<br>
+			<input type="radio" name="size" id="s2" value="3x"> 3X<br>
+		</form>
+	</div>
+	<div class="app3"></div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes8" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+		</div>
+		<div id="titb">
+			TSC Login
+		</div>
+		<div id="titc">
+		</div>
+	</div>
+	<div class="app2">
+		<br><br><br>
+		<p>Please enter the following data</p>
+		<input class="tc1" name="userid" type="email" placeholder="Email Address" id="valor1" /><br><br>
+		<input class="tc1" id="valor2" name="password" type="password" placeholder="Password" /><br><br><br>
+		<a href="#" onclick="showonlyone('newboxes9r');">&nbsp;Forgot your Password?</a>
+		<br><br>
+		<button class="submit" onclick="loginTsc();">Sign In</button><br><br><br>
+		<button class="submit1" onclick="showonlyone('newboxes9');">Create Account</button><br><br><br>
+		<button class="submit2" onclick="showonlyone('newboxes1');">Cancel</button><br><br>
+	</div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes9" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+		</div>
+		<div id="titb">
+			Create an Account
+		</div>
+		<div id="titc">
+		</div>
+	</div>
+	<div class="app2">
+		<br><br><br>
+		<p>Enter the following data to access</p>
+		<input class="tc1" id="id1" name="userid" type="email" placeholder="Email Address"><br><br>
+		<input class="tc1" id="id2" name="password" type="password" placeholder="Password"><br><br>
+		<input class="tc1" id="id3" name="password" type="password" placeholder="Password Confirmation"><br><br>
+		<input class="tc1" id="id4" name="name" type="text" placeholder="Name"><br><br>
+		<input class="tc1" id="id5" name="Phone" type="text" placeholder="Phone Number"><br><br>
+		<button class="submit1" onclick="newAccount()">Create</button><br><br><br>
+		<button class="submit2" onclick="showonlyone('newboxes1');">Cancel</button><br><br>
+	</div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes9r" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+		</div>
+		<div id="titb">
+			Password Reset
+		</div>
+		<div id="titc">
+		</div>
+	</div>
+	<div class="app2">
+		<br><br><br>
+		<p>Enter the following data to access</p>
+		<input class="tc1" id="pr1" name="userid" type="email" placeholder="Email Address"><br><br>
+		<input class="tc1" id="pr2" name="password" type="password" placeholder="Password"><br><br>
+		<input class="tc1" id="pr3" name="password" type="password" placeholder="Password Confirmation"><br><br>
+		<button class="submit1" onclick="resetP()">Accept</button><br><br><br>
+		<button class="submit2" onclick="showonlyone('newboxes1');">Cancel</button><br><br>
+	</div>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes10a" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb1">
+			About Us
+		</div>
+		<div id="titc">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes4');"><&nbsp;Settings</a>
+		</div>
+	</div>
+	<article id="main">
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt;text-align:center;font-size:12px;font-weight: bold;">
+			<br><br><br>Truth in every pixel<br><br> 
+			SHOW THE WORLD AUTHENTICITY<br><br> 
+		</p>
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt;font-size:12px;">
+			True Shot CAM (TSC) is a smartphone camera app and digital image verification system. 
+			When you need to prove the authenticity of digital images, you need True Shot CAM.<br>
+			There is nothing easier to manipulate than a digital image. Don’t be tricked or fooled by other people’s images. 
+			Prove to others that your images are authentic utilizing TSC.<br>
+			With digital images, seeing is not always believing.<br> 
+			•	When you send a digital image to someone, how do you prove to them that it is authentic? <br> 
+			•	When someone sends a digital photo to you, how do you know it was not altered in Photoshop to fool you or defraud you? <br><br>
+		</p> 
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt;text-align:center;font-size:12px;">
+			The answer is True Shot CAM<br>
+			Dismiss speculation<br>
+			&<br>
+			Prove the validity of your photos
+		</p><br>
+        <p class="MsoNormal" style="margin-bottom: 0.0001pt;"> 
+			What exactly is True Shot CAM? When you take photos and videos using your smartphone, 
+			True Shot CAM assigns an identifying number and also stamps the photo or video with the time, date, and GPS coordinates 
+			(plus you may type in your own comments). Once a photograph is taken, it is automatically registered in the system. 
+			You can use True Shot CAM to compare any copy against the original image, by using its unique identification number.
+		</p><br>
+         <p class="MsoNormal" style="margin-bottom: 0.0001pt;">
+			True Shot CAM is convenient. The app is downloaded to your smartphone, so you can use it where and when you want. 
+			You have the option of saving your photos and videos on your True Shot CAM personal album. 
+			The personal album, stored on the Cloud to give you easy and convenient access, and is kept completely private from others.<br><br>
+			To confirm or verify that an image is authentic, True Shot CAM performs a careful, pixel-by-pixel comparison between the image 
+			that has been registered on the True Shot CAM system and the comparison image that you upload.<br><br>
+			Users can choose to make their uploaded photos private or public. Both types of photos can be verified. 
+			Yet, only public photos can be searched and viewed by other users.<br><br>
+			Images can lie. Don’t let them. Use True Shot CAM to register, certify, track, and validate images.
+		</p><br>
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt;font-weight: bold;">
+			True Shot CAM has many uses.<br>
+		</p><br>
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt; padding-left:10px;">
+			&#10003; Take credit for the photos and videos you take by labeling them with your name, email, Facebook page, Twitter handle, etc.<br>
+			&#10003; Certify product sales, exchanges, refunds and returns of items such as cars, electronics, appliances, auto parts, and so on, 
+			whether the transactions have been performed online or in person<br>
+			&#10003; Verify images for your personal records, for peace of mind and to avoid fraud and scams<br>
+			&nbsp;&#10003; Document reports of accidents, incidents, crimes, CHAOS, RIOTS, protests, violence, fights, catastrophes, natural disasters, 
+			or other newsworthy events<br>
+			&#10003; Verify and track custody of photographic evidence used in court proceedings<br>
+			&#10003; Use TSC as a tool for newspaper reporting, private investigations, TV journalism, and so forth<br>
+			&#10003; Record, track, and verify real estate photos, such as houses, apartments, condos, etc.<br>
+			&#10003; Use TSC to keep a record of services provided, such as inspections, construction, and contractual work<br>
+			&#10003; Verify personal photographs posted on social networks and dating sites<br>
+			&#10003; Stamp and certify photographs sent to an insurance company documenting loss<br>
+			&#10003; Use TSC when making claims to insurance companies<br>
+			&#10003; Use it in police, firefighter and EMS evidence and record systems, including inspections, crime scenes, investigations, and much more<br>
+			&#10003; Use TSC in hospitals and clinics to keep records of patients’ complaints such as broken arms, bruises, scratches, burns, etc.<br>
+			&#10003; Consult with your employer as to whether True Shot CAM may be beneficial to you and your company<br>
+		</p><br><br>
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt;text-align:center;font-size:12px;">&copy; Copyright 2015    True Shot CAM</p>
+    </article>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes10b" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb1">
+			Terms and Conditions
+		</div>
+		<div id="titc">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes4');"><&nbsp;Settings</a>
+		</div>
+	</div>
+	<article id="main">
+		<p class="t">
+			<br><h4>General terms and conditions</h4>
+		</p>
+		<p class="t">
+•	You, the user of this product/service, hereby understand, acknowledge and agree that once you have used, displayed, browsed, or accessed any property of True Shot CAM, including but not limited to the website, smartphone application, material and other assets, you agree to all terms, policies, privacy policies, disclaimers, no-guarantee policy, limitation of liability and others. If you do not agree or fail to comply with all these terms, then you are not authorized to use, display, browse or access any property of True Shot CAM.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM will not be held responsible for any data, fees or additional charges your carrier may request from you at any point in time. Moreover, it is highly suggested to ask your carrier provider (according to your cellular and/or mobile carrier billing), the specific rates and fees that may apply when using True Shot CAM app. You are solely responsible for the billing, additional charges and fees of your cellular plan or mobile carrier. True Shot CAM specifically disclaims any responsibility for fees, including but not limited to additional charges and bills. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM is supported by advertisements, found within the website, smartphone application and other properties of True Shot CAM. Advertisements will change from time to time without prior notification, and the advertisements are not controlled by True Shot CAM. Additionally, the advertisements promote other third-party individuals, companies, organizations, etc. You acknowledge that advertisements on, in, attached, about, or in conjunction with our products and services, are not related to or controlled by True Shot CAM. Moreover, True Shot CAM is not liable or responsible for the content of the advertisements. In addition, by accessing, using, viewing or displaying True Shot CAM you grant True Shot CAM rights to display advertisements, regardless of their content. However, you may purchase the smartphone application using the app store of your convenience. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that users must be at least 13 years old to use True Shot CAM.
+		</p>
+		<p class="t">
+•	You hereby understand, agree and acknowledge that True Shot CAM specifically disclaims any fault, responsibility, warranty and liability for the act of members, or third party associates. True Shot CAM is not responsible for and does not promote any material posted onto the True Shot CAM system by third parties, including but not limited to users, members, agents, directors, licensors, affiliates, and associates. You agree and understand that True Shot CAM does not have any obligation to monitor, prescreen or remove any material. However, we do take into consideration users’ rights; you may contact us and ask that we remove material and content from True Shot CAM. Explicit material may be removed from the system or turned into “private.” This only occurs if the material contains offensive acts including but not limited to violence, pornography, nudity, partial nudity, confidential information, bank accounts, credit card information, social security information, hateful acts, abuse, threats, defamation, harassment, discriminatory acts, and unlawful acts.
+		</p>
+		<p class="t">
+•	True Shot CAM specifically disclaims any responsibility or liability for losses, theft, charges, imprisonment, damages (whether actual, consequential, punitive, or otherwise), suits, judgments, litigation costs and other matters alike, which may arise from advertisements for any reason imaginable. It is highly recommended that you read before you agree or deal with any other parties found within True Shot CAM properties. Additionally, you agree that you understand and acknowledge True Shot CAM's terms and conditions, including but not limited to policies, privacy policies, disclaimers, and limitations of liability. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM may become interrupted or unavailable on occasions for various reasons, including, without limitation, upgrades, repairs, maintenance, hardware failure, software failure, API failure, shut downs and link failures. Thus, True Shot CAM properties can be the victim of various malicious occurrences, including but not limited to viruses, spam, system interruptions, connection interruptions, privacy intrusion, material loss, material destruction, material damage, information corruption, system interference, connection interference, bugs and glitches. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM does not claim ownership of the material shared. However, you agree that True Shot CAM reserves the right to remove, view, use, share, transfer, sell and save content for any reason, without prior notice. 
+		</p>
+		<p class="t">
+•	You hereby agree to provide your email address, password and certain personal information to be able to use, display, browse, or access True Shot CAM. Furthermore, any material or information within True Shot CAM properties can be used, displayed, browsed, exploited, advertised, distributed, transferred, shared, blocked, deleted or accessed by True Shot CAM. By using True Shot CAM properties you specifically waive your rights and grant True Shot CAM the rights, claims and license to use the material you have posted for free, at no charge, by True Shot CAM, without your consent or notice. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM reserves the right to change and update all terms, policies, privacy policies, disclaimers, and limitations of liability, etc., without prior notice. It is your responsibility as a user to read and review updates and changes to terms, policies, privacy policies, disclaimers, limitations of liability and more. Moreover, you agree that you will be bound by updates and changes to the terms and conditions. This is a condition of your continued use of True Shot CAM.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that you will not take part in, encourage, assist or help to assist, or attempt to use, display, browse, or access True Shot CAM’s properties in an unauthorized or wrongful manner, including but not limited to circumventing, disrupting, damaging, manipulating, modifying or changing any of True Shot CAM’s networks, websites, smartphone applications, servers, APIs, security, technology, device computers or properties. In the event of violation of intellectual property law, individuals involved in such prohibited activity will be brought to justice and held accountable to the maximum extent permitted by applicable law, including but not limited to damages, injuries, liabilities, charges and risk.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge to hold harmless and indemnify True Shot CAM, subsidiaries, affiliates, officers, agents, licensors, co-branders or other partners, and employees from and against any personal or third-party claim arising from or in any way related to your use of the True Shot CAM website, related to content, including but not limited to material, product, instructions, comments and services found within the smartphone application, APIs, servers and other properties, including any liability or expense arising from all claims, losses, damages (whether actual, consequential, punitive otherwise), suits, judgments, litigation costs and attorneys' fees, of any kind. 
+		</p>
+		<p class="t">
+•	You hereby agree that all explicit material including but not limited to, violence, pornography, nudity, partial nudity, confidential information, bank accounts, credit card information, social security information, hateful acts, abuse, threats, defamation, harassment, discriminatory acts, and unlawful acts must be kept in private. Furthermore, in order to keep these files private, please proceed to the photo containing the explicit material and change its privacy settings from “public” to “private”. If under any circumstances you fail to comply entirely with these terms your account can be discontinued, put on hold or terminated.
+		</p>
+		<p class="t">
+•	You hereby agree not to post explicit material, including materials that may violate the law or someone else’s rights. Be advised, the following materials are not permitted to be posted: pornography, nudity, partial nudity, confidential information, bank accounts, credit card information, social security information, hateful acts, abuse, threats, defamation, harassment, discriminatory acts, or other unlawful acts. If you fail to follow this rule repeatedly your account will be terminated. In addition, if you fail to comply with intellectual property and intellectual property laws repeatedly, we will terminate your account and block your email address from the True Shot CAM system. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that any violation of True Shot CAM’s terms, policies, privacy policies, disclaimers, and limitations of liability is prohibited. Additionally, you (the user) will be held solely responsible for any damages, injuries, liabilities and risks caused to True Shot CAM. Furthermore, you (the user) bear legal and financial responsibility, including but not limited to losses, damages, injuries, suits, charges, fees, judgments, litigation costs, and attorneys' fees, of every kind and nature. Lastly, you may be held liable to the maximum extent permitted by applicable law.
+		</p>
+		<p class="t">
+•	You hereby agree that True Shot CAM has the right to eliminate, terminate and discontinue your account at any time that True Shot CAM feels is appropriate, along with the account’s content, material, posts and other information. Termination may occur without prior notice or explanation.
+		</p>
+		<p class="t">
+•	You hereby agree that you are solely responsible for the material you share using True Shot CAM. This includes your interaction and the way you use the product, service or True Shot CAM’s property, online or offline. Please be aware that you are utilizing True Shot CAM completely at your own risk. Thus, you have complete legal and financial responsibility for claims, including but not limited to, losses, damages, injuries, suits, charges, fees, judgments, litigation costs, attorneys' fees, and other matters alike in relation to the material you post or your interaction with True Shot CAM. In addition, you agree to hold harmless and indemnify True Shot CAM for claims related to your use or interaction with True Shot CAM. True Shot CAM is not responsible or liable for your use or interaction with True Shot CAM. And, True Shot CAM does not have an obligation to monitor or resolve disputes between users, members, affiliates or others.
+		</p>
+		<p class="t">
+•	You hereby pledge and guarantee True Shot CAM that: 
+		</p>
+		<p class="t">
+•	You acknowledge owning the rights and licenses to the material you have posted. Consequently, such material must not infringe intellectual property laws.
+		</p>
+		<p class="t">
+•	You understand, acknowledge and agree to all terms, policies, privacy policies, disclaimers, and limitations of liability. 
+		</p>
+		<p class="t">
+•	You will take complete responsibility and liability for your use of True Shot CAM products and services.
+		</p>
+		<p class="t">
+•	You hereby agree that you  (the user) and True Shot CAM are two separate entities acting independently. Hence, True Shot CAM does not recognize you as an agent, employee, employer or partner of any kind.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that by using True Shot CAM, you waive your rights to the material posted. Any material posted within the True Shot CAM system can be used, displayed, browsed, exploited, advertised, distributed, transferred, shared, blocked, deleted or accessed by True Shot CAM. Thus, by using True Shot CAM properties you specifically waive your rights and grant True Shot CAM the rights, claims and license to use the material you have posted for free, at no charge, by True Shot CAM, without consent or permission from you. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that if you represent an organization, corporation or entity, you are authorized on behalf of your organization, corporation or entity to agree to True Shot CAM’s terms and conditions, including but not limited to policies, privacy policies, disclaimers, and limitations of liability, and that this agreement governs your use of True Shot CAM’s services.
+		</p>
+		<p class="t">
+•	You hereby agree that True Shot CAM, subsidiaries, affiliates, officers, agents, directors, employees or other partners do not have any obligation, express or implied. Additionally, you acknowledge that True Shot CAM specifically disclaims taking part in any contract, express or implied.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that you might at some point receive newsletters, promotions, special offers and notifications about True Shot CAM’s services and products via email or text. However, if you would like to stop receiving newsletters, promotions, special offers and notifications at any time, you can unsubscribe by sending True Shot CAM an email through the Contact Us page, or by clicking “unsubscribe” within the email or text.
+		</p>
+		<p class="t">
+•	Miscellaneous: Section Headings and subheadings are included for clarification within all terms, policies, privacy policies, disclaimers, limitations of liability and other information displayed. However, headings and subheadings do not limit or affect its content. 
+		</p>
+		<p class="t">
+<h4>Disclaimers</h4>
+		</p>
+		<p class="t">
+•	This agreement includes provisions that limit the warranties and liabilities of True Shot CAM.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM does not provide legal advice. For legal advice ask your attorney. Be advised that True Shot CAM does not substitute for any professional services. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM is offered as a camera or tool. True Shot CAM does not substitute for any professional services.
+		</p>
+		<p class="t">
+•	You agree and acknowledge that neither True Shot CAM nor any parties of True Shot CAM provide a warranty, guarantee, claim or promise of the accuracy, usefulness, or precision of True Shot CAM’s products or services. This includes but is not limited to products, services, instructions, and messages’ accuracy. The verification system may fail from time to time, depending on the format of the photo file uploaded, and other technical reasons. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM has no control of the content of third-party advertisements, and there is no connection or link between True Shot CAM and the third party. Consequently, we do not guarantee or promise that any information found within advertisement is useful, accurate, complete or real. Be advised to scrutinize information and be able to discern consequences about what you click and agree to. When dealing with third party advertisements, promotions, offers, etc., dealings with any such party are between you and such party.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM specifically disclaims any promises, claims, guarantees or warranties, express or implied, about the accuracy, precision, usefulness, completeness of True Shot CAM services, products or content.
+		</p>
+		<p class="t">
+•	You here by agree and acknowledge that the service, products and properties provided by True Shot CAM are provided “AS IS”, “AT YOUR OWN RISK”, “WITH ALL FAULTS”, and on an “AS AVAILABLE” basis, to the fullest extent permissible by law. Neither True Shot CAM, nor True Shot CAM’s associates, affiliates, members, directors, employees, technicians, representatives, managers, officers, or agents make any claims, promises, or guarantees expressed or implied about the accuracy, precision, completeness, or content of True Shot CAM’s product, service, content, security, connection, availability, material and information. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM does not make any claims, promises or guarantees that its properties are entirely safe or free of harmful components, including but not limited to, hacking, system errors, viruses, spam, system or connection interruptions, privacy intrusion, material loss, material destruction, damage, corruption, system or connection interference, attacks, bugs and glitches. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that neither True Shot CAM nor any of True Shot CAM’s parties make claims, promises, or warranties that any issues or problems, will or can be resolved.
+		</p>
+		<p class="t">
+•	You hereby agree that the use of the services, products, properties and instructions provided is at your sole risk, and you bear legal responsibility, financial responsibility, and carry liability for the material you post or may have posted. Depending and according to the material you post on True Shot CAM properties, you will be held responsible with the maximum extent permitted by applicable law, including but not limited to charges and imprisonment. Consequently, you are solely and entirely responsible for claims, charges, fees, damages (whether actual, consequential, punitive otherwise), losses, suits, judgments, litigation costs and attorneys' fees, or matters alike, arising between you and another party relating to your use of True Shot CAM’s properties.
+		</p>
+		<p class="t">
+•	You hereby agree to hold harmless and indemnify True Shot CAM and its subsidiaries, affiliates, officers, agents, licensors, co-branders or other partners, and employees from and against any personal claim arising from or in any way related to your use of the True Shot CAM website, smartphone application, APIs, servers and other properties. Claims include but are not limited to liability, expenses arising from all claims, losses, damages (actual and or consequential), suits, judgments, litigation costs and attorneys' fees, of every kind and nature relating to your actions when using the system. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that your use of True Shot CAM properties is lawful and permitted within the jurisdiction from which you have accessed True Shot CAM’s properties.
+		</p>
+		<p class="t">
+•	 You hereby agree and acknowledge that True Shot CAM does not endorse any content, material, instructions, and properties, displayed by members, affiliates, or users. True Shot CAM specifically disclaims responsibility and liability for the actions, situations, claims, losses, damages (whether actual, consequential, punitive otherwise), suits, judgments, litigation costs and attorneys' fees, of every kind and nature, based upon or resulting from such content, material, instructions, and properties.
+		</p>
+		<p class="t">
+<h4>Privacy</h4>
+		</p>
+		<p class="t">
+•	We respect your privacy. Therefore we never share or sell your personal information with any third parties. Any information collected through this site is intended to be used for this transaction only. Your personal information is secured via SSL (Secure Socket Layer) Technology
+		</p>
+		<p class="t">
+•	You hereby understand agree and acknowledge that by using, displaying, browsing and accessing True Shot CAM you consent and agree to the privacy policy.
+		</p>
+		<p class="t">
+•	Be advised that True Shot CAM makes no assurance, guarantee, claim or promise that our security systems are completely safe, secure and protected from threats, including but not limited to, hacking, system errors, viruses, spam, privacy intrusion, material loss, material damage, corruption, system or connection interference, attacks, bugs and glitches to the True Shot CAM system. Nonetheless, we do care about users’ privacy, security and experience when using our product and services. True Shot CAM will do its best to fix security, privacy or any issues found in the system. To let us know about a problem or point out any issues, please feel free to contact us.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that the information gathered, including but not limited to, received, shared and transferred by True Shot CAM is used to operate, maintain, develop, and improve its products and services.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that you may need to verify accounts’ validity, including but not limited to identity, password resetting, using your personal information, email, and other information to follow up with maintenance, activity, transactions, operations and more.
+		</p>
+		<p class="t">
+•	You are responsible for safeguarding your log-in information, such as account name and password. True Shot CAM is not liable for its loss.
+		</p>
+		<p class="t">
+<h4>Reports</h4>
+		</p>
+		<p class="t"> 
+•	Report any violence, pornography, nudity, partial nudity, confidential information, bank accounts, credit card information, social security information, hateful acts, abuse, threats, defamation, harassment, discriminatory acts, unlawful acts, copyright infringement, intellectual property infringement and more by using the Contact Us page to send us an email describing the situation. If there is a user who repeatedly commits the same violations or unlawful acts, their account will be terminated and blocked from using the True Shot CAM system.
+		</p>
+		<p class="t">
+<h4>Payments</h4>
+		</p>
+		<p class="t">
+•	Payment information is not disclosed, sold, provided or shared with any third parties, unless necessary. Nonetheless, some payment information will be shared with third parties when it becomes necessary to process payments, return payments, solve disputes, claim purposes, activity history, customer service and other operations, in which sharing these items of information may become necessary. 
+		</p>
+		<p class="t">
+•	 You hereby agree and acknowledge that True Shot CAM’s products and services are offered at differing prices. You (the user) are solely responsible for any charges, fees, and billing related to your account’s activity within True Shot CAM.
+		</p>
+		<p class="t">
+•	You hereby agree to pay for products and services using a payment method that you are authorized to use.
+		</p>
+				<p class="t">
+<h4>Refund Policy</h4>
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that True Shot CAM does not refund any money that has been deposited or entered into any user’s funds or account. 
+		</p>
+		<p class="t">
+<h4>Limitation of Liability</h4>
+		</p>
+		<p class="t">
+•	You hereby agree to hold harmless and indemnify True Shot CAM and its subsidiaries, associates, affiliates, officers, agents, licensors, co-branders or other partners, and employees from and against any personal or third-party claim arising from or in any way related to your use of the True Shot CAM website, smartphone application, APIs, servers and other properties, including any liability or expense arising from all claims, losses, theft, charges, imprisonment, damages (whether actual, consequential, punitive, or otherwise), suits, judgments, litigation costs and attorneys' fees, of every kind and nature. Additionally, this includes but is not limited to the service, content, performance of service, law enforcement activities, errors, material loss, hacks, attacks, fraud, defects, changes, material damage, personal damage, personal injuries, and material destruction, ethical and legal situations. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that neither True Shot CAM nor any of True Shot CAM’s parties makes claims, promises, or guarantees that any issues or problems will or can be fixed. Nonetheless, True Shot CAM will do its best to fix security and privacy issues. To point out any issues, please feel free to contact us. 
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that under no circumstances is True Shot CAM liable to you or anyone for any amount of money as a result of disappointment with the app services.
+		</p>
+		<p class="t">
+•	You hereby agree and acknowledge that if your jurisdiction or state does not allow the exclusion or limitation of incidental or consequential damages, under no circumstances will True Shot CAM or any related parties exceed a liability for damages, injuries, or losses, which exceed fifty United State Dollars ($50). 
+		</p>
+		<p class="t">
+•	You hereby agree to hold harmless and indemnify True Shot CAM and its subsidiaries, affiliates, officers, agents, licensors, co-branders or other partners, and employees in the event that any act or omission causes your personal losses, damages (whether actual, consequential, punitive, or otherwise), suits, judgments, litigation costs and attorneys' fees, of every kind and nature. 
+		</p>
+		<p class="t">
+<h4>Remedies</h4>
+		</p>
+		<p class="t">
+•	If any controversy or claim arises out of or relating to this agreement or any products or services provided by us to you in connection with the above described or any other matters, we both waive any right to bring court action or have a jury trial and agree that the dispute shall be submitted to binding arbitration to be conducted in Miami before the American Arbitration Association.
+		</p>
+		<p class="t">
+<h4>Business Transfers</h4>
+		</p>
+		<p class="t">
+•	Under the circumstances in which True Shot CAM sells, acquires, or trades a portion of its assets with another company, you understand, acknowledge and agree that the above terms and conditions, including but not limited to, policies, privacy policies, disclaimers, limitations of liability and more, continue to be and are binding on you. 
+		</p>
+		<p class="t">
+<h4>Contact Us</h4>
+		</p>
+		<p class="t">
+•	In regards to additional information or concerns, please feel free to contact us so that we may have the opportunity to address the matter appropriately. 
+		</p><br>
+		<p class="MsoNormal" style="margin-bottom: 0.0001pt;text-align:center;font-size:12px;">&copy; Copyright 2015    True Shot CAM</p>
+    </article>
+</div>
+</div>
+
+<div class="newboxes" id="newboxes10c" style="display:none;">
+<div id="containerw">
+	<div id="tit">
+		<div id="tita">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes1');"><&nbsp;Home</a>
+		</div>
+		<div id="titb1">
+			Contact Us
+		</div>
+		<div id="titc">
+			<br><a href="#" onclick="amostrars();showonlyone('newboxes4');"><&nbsp;Settings</a>
+		</div>
+	</div>
+	<br>
+	<div class="app3">
+		<br><br>
+		<br>Please enter your comments<br>
+		<p><textarea id="texta"></textarea></p>
+		<button class="submit3" type="submit" onclick="sendMessage('');">SUBMIT</button>
+		<br>
+	</div>
+</div>
+</div>
+
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/index2.js"></script>
+	<script type="text/javascript">app.initialize();</script>
+</body>
+</html>
