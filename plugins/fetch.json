@@ -1,0 +1,10 @@
+{
+    "cordova-plugin-canvas2image": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-canvas2image"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
