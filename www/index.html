@@ -66,7 +66,11 @@ function showonlyone(thechosenone) {
 		thechosenone = "newboxes8";
 	}
 	
-	showInterstitialAd();
+	if ((thechosenone=="newboxes3") || (thechosenone=="newboxes5") || (thechosenone=="newboxes6") || (thechosenone=="newboxes3") ||
+	(thechosenone=="newboxes10a") || (thechosenone=="newboxes10b")){
+		showInterstitialAd();
+	}
+	// showInterstitialAd();
 
 	for(var x=0; x<newboxes.length; x++) {
 		name = newboxes[x].getAttribute("class");
