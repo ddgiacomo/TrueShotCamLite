@@ -66,7 +66,7 @@ function showonlyone(thechosenone) {
 		thechosenone = "newboxes8";
 	}
 	
-	if (thechosenone == "newboxes3") {
+/*	if (thechosenone == "newboxes3") {
 		showInterstitialAd();
 	} else if (thechosenone == "newboxes5") {
 		showInterstitialAd();
@@ -78,8 +78,10 @@ function showonlyone(thechosenone) {
 		showInterstitialAd();
 	} else if (thechosenone == "newboxes10b") {
 		showInterstitialAd();
-	}
-	// showInterstitialAd();
+	} */
+	alert('antes de la publicidad');
+	showInterstitialAd();
+	alert('despues de la publicidad');
 
 	for(var x=0; x<newboxes.length; x++) {
 		name = newboxes[x].getAttribute("class");
