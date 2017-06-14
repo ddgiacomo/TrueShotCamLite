@@ -62,13 +62,13 @@ function showonlyone(thechosenone) {
 	var newboxes = document.getElementsByTagName("div");
 	var umail = localStorage.getItem("usermail");
 
-	if ((!umail) && (thechosenone != "newboxes8")){
+	if ((!umail) && (thechosenone != "newboxes8") && (thechosenone != "newboxes9")){
 		thechosenone = "newboxes8";
 	}
 	
-/*	if (thechosenone == "newboxes3") {
+	if (thechosenone == "newboxes3") {
 		showInterstitialAd();
-	} else if (thechosenone == "newboxes5") {
+	}  else if (thechosenone == "newboxes5") {
 		showInterstitialAd();
 	} else if (thechosenone == "newboxes6") {
 		showInterstitialAd();
@@ -78,10 +78,10 @@ function showonlyone(thechosenone) {
 		showInterstitialAd();
 	} else if (thechosenone == "newboxes10b") {
 		showInterstitialAd();
-	} */
-	alert('antes de la publicidad');
-	showInterstitialAd();
-	alert('despues de la publicidad');
+	} 
+
+//	showInterstitialAd();
+
 
 	for(var x=0; x<newboxes.length; x++) {
 		name = newboxes[x].getAttribute("class");
