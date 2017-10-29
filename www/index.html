@@ -383,39 +383,50 @@ function canvasize(){
 var x = window.innerWidth
 || document.documentElement.clientWidth
 || document.body.clientWidth;
+	
+var y = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
 
-    if (x <= 320){
+    if (x <= 340){
 		c.height = 420;
 		c.width = 300;
-	    pWd = 0;
+	    	pWd = 0;
 		ctx.font = "italic 16px sans-serif";
-	} else if (x <= 480) {
+	} else if (x <= 420) {
 		c.height = 450;
 		c.width = 321;
 		pWd = 0;
 		ctx.font = "italic 20px sans-serif";
-	} else if (x <= 540) {
+	} else if (x <= 550) {
 		c.height = 481;
 		c.width = 481;
 		pWd = 0;
 		ctx.font = "italic 20px sans-serif";
-	} else if (x <= 600) {
-		c.height = 550;
-		c.width = 541;
-		ctx.font = "italic 28px sans-serif";
-	} else if (x <= 800) {
-		c.height = 600;
-		c.width = 601;
-		ctx.font = "italic 28px sans-serif";
-	} else if (x <= 1150) {
-		c.height = 801;
-		c.width = 801;
-		ctx.font = "italic 28px sans-serif";
+	} else if (x <= 650) {
+		if (y > 400) {
+			c.height = 650;
+			c.width = 560;
+			ctx.font = "italic 28px sans-serif";
+		} else {
+			c.height = 250;
+			c.width = 600;
+			ctx.font = "italic 28px sans-serif";
+		}
 	} else {
-		c.height = 1151;
-		c.width = 1151;
-		ctx.font = "italic 28px sans-serif";
+		if (y > 600) {
+			c.height = 800;
+			c.width = 680;
+			ctx.font = "italic 28px sans-serif";
+		} else {
+			c.height = 400;
+			c.width = 900;
+			ctx.font = "italic 28px sans-serif";
+		}
 	}
+	c.height = y - 150;
+	c.width = x - 50;
+	
 /*	var textoCamara = 'Press "Take photo" to take picture,';
 	ctx.fillText(textoCamara,10,100);
 	var textoCamara = 'and press save photo to save the';
