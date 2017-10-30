@@ -354,7 +354,7 @@ article{
 @media all and (min-width: 200px) and (max-width: 340px){               /* iphone 5 */
 	#container{ background-image: url(../img/tsc_03b.jpg); }
 	button.submit, button.submit1, button.submit2, button.submit3 {
-		height:35px;
+		height:30px;
 	}
 	input.tc1 {
 		height:30px; 
@@ -387,8 +387,8 @@ article{
 		height:40px;
 	}
 	img.resize{
-		max-width:35%;
-		max-height:35%;
+		max-width:30%;
+		max-height:30%;
 	}
 }
 
@@ -401,7 +401,7 @@ article{
 }
 
 @media all and (min-width: 551px) and (max-width: 650px){           /* nexus 7, galaxy 7 */
-	#container{ background-image: url(../img/tsc_03f.jpg); height: 800px;}
+	#container{ background-image: url(../img/tsc_03f.jpg); height: 850px;}
 	button.submit, button.submit1, button.submit2, button.submit3 {
 		font-size:24px;
 		height:55px;
@@ -444,7 +444,7 @@ article{
 }
 
 @media all and (min-width: 651px) and (max-width: 850px){             /* nexux 10, galaxy 10 */
-	#container{ background-image: url(../img/tsc_03.jpg); }
+	#container{ background-image: url(../img/tsc_04.jpg); height:800px;}
 	button.submit, button.submit1, button.submit2, button.submit3 {
 		font-size:24px;
 		height:45px;
