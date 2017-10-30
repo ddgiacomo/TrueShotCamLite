@@ -66,35 +66,39 @@ onPhotoDataSuccess: function(imageData) {
 	var img=new Image();
 	img.src= imageData;
 //	var w = screen.width - 50;
+	
 	var x = window.innerWidth
 || document.documentElement.clientWidth
 || document.body.clientWidth;
 
-var xh = window.innerHeight
+	var xh = window.innerHeight
 || document.documentElement.clientHeight
 || document.body.clientHeight;
 
-	var w = x - 50;
-	var h = w;
-/*	var x1=img.width/w;
-	var y1=img.height/w;
-	var x2=0;
-	var y2=0;
-	if (x1 > y1) {
-		x2=img.width/x1;
-		y2=img.height/x1;
-	} else {
-		x2=img.width/y1;
-		y2=img.height/y1;
-	}
-*/	
+//	var w = x - 50;
+//	var h = w;
+
 img.onload = function(e) {
 	var iw = img.width;
 	var ih = img.height;
+	if (iw < ih) {
+		var w = x - 50;
+		var wh = xh - 150;
+		var h = w;
+	} else {
+		if (x < xh) {
+			var w = xh - 150;
+			var wh = x - 200;
+		} else {
+			var wh = xh - 150;
+			var w = x - 200;
+		}
+		var h = w;
+	}
 	var x1=img.width/w;
 	h = img.height/x1;
 	
-	if (x < xh) {
+/*	if (x < xh) {
 		if (iw > ih) {
 			h = h * 1.35;
 			w = w * 1.35;
@@ -119,7 +123,11 @@ img.onload = function(e) {
 		canvas.height=h;
 		ctx.drawImage(img,0,0,w,h);
 	}
-
+*/
+	canvas.width=w;
+	canvas.height=h;
+	ctx.drawImage(img,0,0,w,h);
+	
 // * agrega lineas
 	ctx.lineWidth = 1;
 	var nL = parseInt(lsqt);
